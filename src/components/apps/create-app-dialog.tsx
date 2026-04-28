@@ -29,6 +29,7 @@ export function CreateAppDialog({ open, onOpenChange }: Props) {
   const [step, setStep] = useState<1 | 2>(1);
   const [playStoreUrl, setPlayStoreUrl] = useState("");
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const [fetchedIconUrl, setFetchedIconUrl] = useState("");
 
   const { mutateAsync: fetchPlayStore, isPending: fetching } = useFetchFromPlayStore();
   const { mutateAsync: createApp, isPending: creating } = useCreateApp();
@@ -39,7 +40,13 @@ export function CreateAppDialog({ open, onOpenChange }: Props) {
 
   const handleClose = () => {
     onOpenChange(false);
-    setTimeout(() => { setStep(1); setPlayStoreUrl(""); setFetchError(null); reset(); }, 300);
+    setTimeout(() => {
+      setStep(1);
+      setPlayStoreUrl("");
+      setFetchError(null);
+      setFetchedIconUrl("");
+      reset();
+    }, 300);
   };
 
   // Step 1: Fetch from Play Store
@@ -52,13 +59,16 @@ export function CreateAppDialog({ open, onOpenChange }: Props) {
         setValue("name", result.data.name);
         setValue("package_name", result.data.package_name);
         setValue("play_store_url", playStoreUrl.trim());
+        setFetchedIconUrl(result.data.icon_url);
       } else {
         // Partial: only package_name extracted
         setValue("package_name", result.package_name);
         setValue("play_store_url", playStoreUrl.trim());
+        setFetchedIconUrl("");
         setFetchError(result.message ?? "Could not fetch all fields. Please fill in manually.");
       }
     } catch {
+      setFetchedIconUrl("");
       setFetchError("Fetch failed. You can still fill in the form manually.");
     }
     setStep(2);
@@ -66,7 +76,13 @@ export function CreateAppDialog({ open, onOpenChange }: Props) {
 
   const onSubmit = async (data: CreateAppFormInput) => {
     try {
-      await createApp({ input: { ...data, play_store_url: data.play_store_url || undefined } });
+      await createApp({
+        input: {
+          ...data,
+          app_logo: fetchedIconUrl || undefined,
+          play_store_url: data.play_store_url || undefined,
+        },
+      });
       handleClose();
     } catch (err) {
       handleError(err, { setError });

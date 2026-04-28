@@ -11,6 +11,18 @@ import type {
   PlayStoreFetchResult,
 } from "@/types";
 
+type AppResponse = App & {
+  icon_url?: string | null;
+  logo_url?: string | null;
+};
+
+function normalizeApp(app: AppResponse): App {
+  return {
+    ...app,
+    app_logo: app.app_logo ?? app.icon_url ?? app.logo_url ?? null,
+  };
+}
+
 // ─────────────────────────────────────────────────────────────────
 // DEVELOPER APPS SERVICE
 // Modules 13 + 14: /api/v1/developer/apps/* + /play-store/fetch
@@ -25,7 +37,10 @@ export const developerAppsService = {
     const res = await developerAxios.get<ApiResponseWithMeta<App[]>>(
       "/developer/apps",
     );
-    return res.data;
+    return {
+      ...res.data,
+      data: res.data.data.map((app) => normalizeApp(app as AppResponse)),
+    };
   },
 
   /**
@@ -33,10 +48,10 @@ export const developerAppsService = {
    * Returns full app including networks + units + settings
    */
   getApp: async (id: number | string): Promise<App> => {
-    const res = await developerAxios.get<ApiResponse<App>>(
+    const res = await developerAxios.get<ApiResponse<AppResponse>>(
       `/developer/apps/${id}`,
     );
-    return res.data.data;
+    return normalizeApp(res.data.data);
   },
 
   /**
@@ -61,12 +76,12 @@ export const developerAppsService = {
       body = input;
     }
 
-    const res = await developerAxios.post<ApiResponse<App>>(
+    const res = await developerAxios.post<ApiResponse<AppResponse>>(
       "/developer/apps",
       body,
       { headers },
     );
-    return res.data.data;
+    return normalizeApp(res.data.data);
   },
 
   /**
@@ -76,11 +91,11 @@ export const developerAppsService = {
     id: number | string,
     input: UpdateAppInput,
   ): Promise<App> => {
-    const res = await developerAxios.put<ApiResponse<App>>(
+    const res = await developerAxios.put<ApiResponse<AppResponse>>(
       `/developer/apps/${id}`,
       input,
     );
-    return res.data.data;
+    return normalizeApp(res.data.data);
   },
 
   /**

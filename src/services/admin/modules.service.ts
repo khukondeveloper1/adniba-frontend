@@ -24,19 +24,31 @@ import type {
   CreateGlobalNetworkInput,
 } from "@/types";
 
+type AppResponse = App & {
+  icon_url?: string | null;
+  logo_url?: string | null;
+};
+
+function normalizeApp(app: AppResponse): App {
+  return {
+    ...app,
+    app_logo: app.app_logo ?? app.icon_url ?? app.logo_url ?? null,
+  };
+}
+
 // ─────────────────────────────────────────────────────────────────
 // ADMIN APPS SERVICE — Module 3
 // ─────────────────────────────────────────────────────────────────
 
 export const adminAppsService = {
   listApps: async (): Promise<App[]> => {
-    const res = await adminAxios.get<ApiResponse<App[]>>("/admin/apps");
-    return res.data.data;
+    const res = await adminAxios.get<ApiResponse<AppResponse[]>>("/admin/apps");
+    return res.data.data.map((app) => normalizeApp(app));
   },
 
   getApp: async (id: number | string): Promise<App> => {
-    const res = await adminAxios.get<ApiResponse<App>>(`/admin/apps/${id}`);
-    return res.data.data;
+    const res = await adminAxios.get<ApiResponse<AppResponse>>(`/admin/apps/${id}`);
+    return normalizeApp(res.data.data);
   },
 
   suspendApp: async (
