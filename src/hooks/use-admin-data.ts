@@ -49,6 +49,18 @@ export function useAdminRotateKey() {
   });
 }
 
+export function useAdminDeleteApp() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: number | string) => adminAppsService.deleteApp(id),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: queryKeys.adminApps() });
+      qc.invalidateQueries({ queryKey: ["admin", "users"] });
+      toast.success("App removed.");
+    },
+  });
+}
+
 // ── Global Networks ───────────────────────────────────────────────
 
 export function useAdminGlobalNetworks() {
@@ -107,7 +119,11 @@ export function useAdminToggleUserStatus() {
   return useMutation({
     mutationFn: ({ id, input }: { id: number | string; input: ToggleUserStatusInput }) =>
       adminUsersService.toggleUserStatus(id, input),
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ["admin", "users"] }); toast.success("User status updated."); },
+    onSuccess: (_, { id }) => {
+      qc.invalidateQueries({ queryKey: ["admin", "users"] });
+      qc.invalidateQueries({ queryKey: queryKeys.adminUser(id) });
+      toast.success("User status updated.");
+    },
   });
 }
 
@@ -116,7 +132,11 @@ export function useAdminSetAppLimit() {
   return useMutation({
     mutationFn: ({ id, input }: { id: number | string; input: SetAppLimitInput }) =>
       adminUsersService.setAppLimit(id, input),
-    onSuccess: (_, { id }) => { qc.invalidateQueries({ queryKey: queryKeys.adminUser(id) }); toast.success("App limit updated."); },
+    onSuccess: (_, { id }) => {
+      qc.invalidateQueries({ queryKey: ["admin", "users"] });
+      qc.invalidateQueries({ queryKey: queryKeys.adminUser(id) });
+      toast.success("App limit updated.");
+    },
   });
 }
 

@@ -8,6 +8,11 @@
 export interface App {
   id: number;
   user_id?: number; // Present in admin responses
+  user?: {
+    id: number;
+    name: string;
+    email: string;
+  } | null;
   name: string;
   package_name: string;
   app_logo: string | null;

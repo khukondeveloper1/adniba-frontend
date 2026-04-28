@@ -29,6 +29,13 @@ type AppResponse = App & {
   logo_url?: string | null;
 };
 
+type AdminUsersListResponse = {
+  status: "ok" | "error";
+  data: AdminDeveloper[];
+  stats: AdminUserListStats;
+  message?: string;
+};
+
 function normalizeApp(app: AppResponse): App {
   return {
     ...app,
@@ -60,6 +67,10 @@ export const adminAppsService = {
 
   unsuspendApp: async (id: number | string): Promise<void> => {
     await adminAxios.post(`/admin/apps/${id}/unsuspend`);
+  },
+
+  deleteApp: async (id: number | string): Promise<void> => {
+    await adminAxios.delete(`/admin/apps/${id}`);
   },
 
   /**
@@ -128,10 +139,21 @@ export const adminUsersService = {
     search?: string;
     status?: "active" | "inactive";
   }): Promise<{ users: AdminDeveloper[]; stats: AdminUserListStats }> => {
-    const res = await adminAxios.get<
-      ApiResponse<{ users: AdminDeveloper[]; stats: AdminUserListStats }>
-    >("/admin/users", { params });
-    return res.data.data;
+    const res = await adminAxios.get<AdminUsersListResponse>("/admin/users", {
+      params: {
+        search: params?.search,
+        status:
+          params?.status === "active"
+            ? 1
+            : params?.status === "inactive"
+              ? 0
+              : undefined,
+      },
+    });
+    return {
+      users: res.data.data,
+      stats: res.data.stats,
+    };
   },
 
   getUser: async (id: number | string): Promise<AdminDeveloperDetail> => {
