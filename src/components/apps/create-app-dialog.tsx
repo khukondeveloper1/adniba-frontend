@@ -143,6 +143,24 @@ export function CreateAppDialog({ open, onOpenChange }: Props) {
                   {fetchError}
                 </div>
               )}
+              {fetchedIconUrl && (
+                <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-3">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={fetchedIconUrl}
+                    alt="Fetched app logo"
+                    className="h-14 w-14 rounded-xl border border-slate-200 object-cover shrink-0 bg-white"
+                  />
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-slate-900">
+                      {errors.name ? "Fetched app" : "App details loaded"}
+                    </p>
+                    <p className="truncate text-xs text-slate-500">
+                      Review the details below before creating the app.
+                    </p>
+                  </div>
+                </div>
+              )}
               <FormField
                 label="App Name"
                 required

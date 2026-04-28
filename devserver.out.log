@@ -94,3 +94,35 @@
  ○ Compiling /admin/dashboard ...
  ✓ Compiled /admin/dashboard in 684ms (696 modules)
  ✓ Compiled /admin/dashboard/pages in 279ms (720 modules)
+ GET / 200 in 215ms
+ ○ Compiling /about ...
+ ✓ Compiled /about in 1415ms (1358 modules)
+ ○ Compiling /register ...
+ ✓ Compiled /register in 703ms (697 modules)
+ GET /register 200 in 863ms
+ GET /about 200 in 70ms
+ GET /about 200 in 71ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 725ms (690 modules)
+ GET /about.html 404 in 951ms
+ GET /about.html 404 in 77ms
+ GET /privacy 200 in 111ms
+ GET /about.html 404 in 92ms
+ GET /privacy 200 in 70ms
+ GET /privacy.html 404 in 59ms
+ GET /about 200 in 58ms
+ GET /register 200 in 67ms
+ GET /about 200 in 69ms
+ GET /privacy.html 404 in 63ms
+ GET /about 200 in 42ms
+ GET / 200 in 100ms
+ GET /register 200 in 49ms
+ GET /about 200 in 50ms
+ ○ Compiling /terms ...
+ ✓ Compiled /terms in 515ms (690 modules)
+ ○ Compiling /admin/login ...
+ ✓ Compiled /admin/login in 972ms (694 modules)
+ GET /admin/login 200 in 1211ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled /admin/dashboard in 858ms (625 modules)
+ ✓ Compiled in 7.5s (1281 modules)
