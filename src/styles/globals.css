@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────────
+   FONT IMPORTS
+   Using next/font in layout.tsx — these are CSS variable fallbacks
+───────────────────────────────────────────────────────────────── */
+
+@layer base {
+  :root {
+    /* ── Core Palette ───────────────────────────────────────────── */
+    --background: 0 0% 99%;          /* Near-white #FCFCFC */
+    --foreground: 222 47% 11%;       /* Deep navy #0F172A */
+
+    --card: 0 0% 100%;               /* Pure white */
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Primary — Trust Blue */
+    --primary: 221 83% 53%;          /* #2563EB */
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary — Soft gray for secondary actions */
+    --secondary: 210 40% 96%;        /* #F1F5F9 */
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%; /* #64748B */
+
+    --accent: 210 40% 94%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;        /* #EF4444 */
+    --destructive-foreground: 0 0% 100%;
+
+    /* ── Borders & Inputs ───────────────────────────────────────── */
+    --border: 214 32% 91%;           /* #E2E8F0 */
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;             /* Matches primary */
+
+    /* ── Radius ─────────────────────────────────────────────────── */
+    --radius: 0.5rem;                /* 8px — professional, not too rounded */
+
+    /* ── Sidebar ────────────────────────────────────────────────── */
+    --sidebar: 222 47% 11%;          /* Deep navy sidebar */
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-border: 220 40% 16%;
+    --sidebar-accent: 220 40% 18%;
+    --sidebar-accent-foreground: 0 0% 100%;
+
+    /* ── Ad Type Badge Colors ───────────────────────────────────── */
+    --ad-banner: 213 94% 68%;        /* Blue */
+    --ad-interstitial: 270 95% 75%;  /* Purple */
+    --ad-rewarded: 45 96% 64%;       /* Amber */
+    --ad-native: 142 71% 55%;        /* Green */
+    --ad-app-open: 25 95% 67%;       /* Orange */
+
+    /* ── Status Colors ──────────────────────────────────────────── */
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+  }
+
+  /* ── Base Resets ─────────────────────────────────────────────── */
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Smooth scrolling platform-wide */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT UTILITIES
+───────────────────────────────────────────────────────────────── */
+
+@layer utilities {
+  /* Skeleton shimmer animation */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 25%,
+      hsl(210 40% 92%) 50%,
+      hsl(var(--muted)) 75%
+    );
+    background-size: 200% 100%;
+    @apply animate-shimmer rounded;
+  }
+
+  /* Consistent card style */
+  .card-base {
+    @apply bg-card rounded-lg border border-border shadow-card;
+  }
+
+  /* Focus ring consistent with brand */
+  .focus-ring {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
+  }
+
+  /* Monospace text for IDs, keys, code */
+  .font-code {
+    @apply font-mono text-sm tracking-tight;
+  }
+
+  /* Subtle section divider */
+  .section-divider {
+    @apply border-t border-border my-6;
+  }
+
+  /* Page container */
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Dashboard content area padding */
+  .dashboard-content {
+    @apply p-6 space-y-6;
+  }
+
+  /* Scrollbar styling — thin, professional */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.4);
+  }
+}
