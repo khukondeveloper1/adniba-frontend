@@ -1,129 +1,58 @@
 
 > adnex@0.1.0 dev
-> next dev --port 3000
+> next dev -p 3000
 
   ▲ Next.js 14.2.35
   - Local:        http://localhost:3000
 
  ✓ Starting...
- ✓ Ready in 3.4s
+ ✓ Ready in 2.7s
  ○ Compiling / ...
- ✓ Compiled / in 5.8s (1039 modules)
- ✓ Compiled in 506ms (465 modules)
- GET / 200 in 6398ms
+ ✓ Compiled / in 6.6s (1039 modules)
+ ✓ Compiled in 558ms (465 modules)
+ GET / 200 in 53ms
+ GET / 200 in 86ms
  ○ Compiling /login ...
- ✓ Compiled /login in 933ms (1061 modules)
- GET / 200 in 250ms
- ○ Compiling /docs ...
- ✓ Compiled /docs in 581ms (1052 modules)
- GET /docs 200 in 816ms
- ✓ Compiled /login in 210ms (589 modules)
- ○ Compiling /register ...
- ✓ Compiled /register in 597ms (1073 modules)
+ ✓ Compiled /login in 995ms (1061 modules)
  ○ Compiling /dashboard ...
- ✓ Compiled /dashboard in 1374ms (1111 modules)
+ ✓ Compiled /dashboard in 603ms (1099 modules)
+ ○ Compiling /dashboard/apps/[id] ...
+ ✓ Compiled /dashboard/apps/[id] in 1789ms (1320 modules)
  ○ Compiling /dashboard/apps ...
- ✓ Compiled /dashboard/apps in 1235ms (1259 modules)
- ○ Compiling /dashboard/external-api ...
- ✓ Compiled /dashboard/external-api in 522ms (1269 modules)
- ○ Compiling /dashboard/apps/[id] ...
- ✓ Compiled /dashboard/apps/[id] in 1904ms (1321 modules)
- ○ Compiling /dashboard/settings ...
- ✓ Compiled /dashboard/settings in 734ms (1323 modules)
- GET /dashboard/apps/4?tab=networks 200 in 219ms
- ✓ Compiled /login in 362ms (700 modules)
- GET /login 200 in 187ms
+ ✓ Compiled /dashboard/apps in 571ms (1340 modules)
  ○ Compiling /admin/login ...
- ✓ Compiled /admin/login in 1448ms (1341 modules)
- GET /admin/login 200 in 1544ms
- GET /admin/login 200 in 74ms
+ ✓ Compiled /admin/login in 797ms (1358 modules)
+ GET /admin/login 200 in 1093ms
  ○ Compiling /admin/dashboard ...
- ✓ Compiled /admin/dashboard in 2.5s (1368 modules)
- ✓ Compiled in 316ms (657 modules)
- ○ Compiling /admin/dashboard/limit-requests ...
- ✓ Compiled /admin/dashboard/limit-requests in 853ms (1371 modules)
+ ✓ Compiled /admin/dashboard in 693ms (1354 modules)
  ○ Compiling /admin/dashboard/apps ...
- ✓ Compiled /admin/dashboard/apps in 1772ms (1332 modules)
- ○ Compiling /admin/dashboard/developers ...
- ✓ Compiled /admin/dashboard/developers in 916ms (1331 modules)
- ○ Compiling /admin/dashboard/networks ...
- ✓ Compiled /admin/dashboard/networks in 1171ms (1349 modules)
- ○ Compiling /admin/dashboard/analytics ...
- ✓ Compiled /admin/dashboard/analytics in 787ms (1350 modules)
- ○ Compiling /admin/dashboard/emails ...
- ✓ Compiled /admin/dashboard/emails in 629ms (1354 modules)
- ○ Compiling /admin/dashboard/api-docs ...
- ✓ Compiled /admin/dashboard/api-docs in 985ms (1363 modules)
+ ✓ Compiled /admin/dashboard/apps in 701ms (1366 modules)
  ○ Compiling /admin/dashboard/pages ...
- ✓ Compiled /admin/dashboard/pages in 717ms (1369 modules)
- ○ Compiling /admin/login ...
- ✓ Compiled /admin/login in 1334ms (672 modules)
- GET /admin/login 200 in 293ms
+ ✓ Compiled /admin/dashboard/pages in 558ms (1359 modules)
+ GET /admin/dashboard 200 in 156ms
+ GET /dashboard/apps 200 in 128ms
+ GET /admin/dashboard/apps 200 in 47ms
+ GET /admin/dashboard/apps 200 in 52ms
+ ○ Compiling /admin/dashboard/limit-requests ...
+ ✓ Compiled /admin/dashboard/limit-requests in 1448ms (1375 modules)
+ ✓ Compiled in 325ms (659 modules)
+ ✓ Compiled /login in 488ms (724 modules)
+ GET /login 200 in 715ms
+ ✓ Compiled /dashboard in 454ms (730 modules)
+ ○ Compiling /admin/dashboard/developers ...
+ ✓ Compiled /admin/dashboard/developers in 1136ms (1391 modules)
+ ○ Compiling /admin/dashboard/networks ...
+ ✓ Compiled /admin/dashboard/networks in 661ms (1382 modules)
+ ✓ Compiled /admin/login in 269ms (721 modules)
+ GET /admin/login 200 in 477ms
+ ✓ Compiled /admin/dashboard/apps in 342ms (721 modules)
+ ✓ Compiled /dashboard/apps in 236ms (727 modules)
+ ✓ Compiled /admin/dashboard/networks in 477ms (717 modules)
+ ✓ Compiled /admin/dashboard/developers in 373ms (719 modules)
+ GET /admin/dashboard/networks 200 in 218ms
+ GET /admin/dashboard/networks 200 in 81ms
+ GET /dashboard/apps/10?tab=networks 200 in 54ms
  ○ Compiling /login ...
- ✓ Compiled /login in 1117ms (676 modules)
- GET /login 200 in 1351ms
- ○ Compiling /dashboard ...
- ✓ Compiled /dashboard in 1341ms (691 modules)
- ○ Compiling /dashboard/apps/[id] ...
- ✓ Compiled /dashboard/apps/[id] in 1119ms (713 modules)
- ○ Compiling /dashboard/external-api ...
- ✓ Compiled /dashboard/external-api in 722ms (714 modules)
- GET /login 200 in 283ms
- GET /login 200 in 145ms
- GET /admin/login 200 in 85ms
- ○ Compiling /admin/dashboard/api-docs ...
- ✓ Compiled /admin/dashboard/api-docs in 678ms (712 modules)
- GET /admin/login 200 in 149ms
- ○ Compiling /admin/dashboard/apps ...
- ✓ Compiled /admin/dashboard/apps in 593ms (719 modules)
- GET /admin/login 200 in 77ms
- ✓ Compiled /admin/dashboard/pages in 304ms (723 modules)
- GET /admin/login 200 in 54ms
- GET /admin/login 200 in 75ms
- ○ Compiling / ...
- ✓ Compiled / in 1383ms (756 modules)
- GET / 200 in 1699ms
- ○ Compiling /privacy ...
- ✓ Compiled /privacy in 1841ms (1447 modules)
- ○ Compiling /terms ...
- ✓ Compiled /terms in 759ms (1449 modules)
- ○ Compiling /_not-found ...
- ✓ Compiled /_not-found in 762ms (1431 modules)
- GET /contact 404 in 220ms
- GET / 200 in 95ms
- ○ Compiling /admin/dashboard ...
- ✓ Compiled /admin/dashboard in 684ms (696 modules)
- ✓ Compiled /admin/dashboard/pages in 279ms (720 modules)
- GET / 200 in 215ms
- ○ Compiling /about ...
- ✓ Compiled /about in 1415ms (1358 modules)
- ○ Compiling /register ...
- ✓ Compiled /register in 703ms (697 modules)
- GET /register 200 in 863ms
- GET /about 200 in 70ms
- GET /about 200 in 71ms
- ○ Compiling /_not-found ...
- ✓ Compiled /_not-found in 725ms (690 modules)
- GET /about.html 404 in 951ms
- GET /about.html 404 in 77ms
- GET /privacy 200 in 111ms
- GET /about.html 404 in 92ms
- GET /privacy 200 in 70ms
- GET /privacy.html 404 in 59ms
- GET /about 200 in 58ms
- GET /register 200 in 67ms
- GET /about 200 in 69ms
- GET /privacy.html 404 in 63ms
- GET /about 200 in 42ms
- GET / 200 in 100ms
- GET /register 200 in 49ms
- GET /about 200 in 50ms
- ○ Compiling /terms ...
- ✓ Compiled /terms in 515ms (690 modules)
- ○ Compiling /admin/login ...
- ✓ Compiled /admin/login in 972ms (694 modules)
- GET /admin/login 200 in 1211ms
- ○ Compiling /admin/dashboard ...
- ✓ Compiled /admin/dashboard in 858ms (625 modules)
- ✓ Compiled in 7.5s (1281 modules)
- ✓ Compiled in 1510ms (687 modules)
+ ✓ Compiled /login in 1058ms (727 modules)
+ GET /dashboard/apps/10?tab=networks 200 in 237ms
+[?25h

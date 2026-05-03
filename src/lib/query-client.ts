@@ -87,6 +87,8 @@ export const queryKeys = {
   // ── Admin — Apps ─────────────────────────────────────────────────
   adminApps: () => ["admin", "apps"] as const,
   adminApp: (id: number | string) => ["admin", "apps", id] as const,
+  adminAppEvents: (id: number | string) =>
+    ["admin", "apps", id, "events"] as const,
 
   // ── Admin — Global Networks ──────────────────────────────────────
   adminGlobalNetworks: () => ["admin", "global-networks"] as const,

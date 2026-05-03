@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { RefreshCw, Search, ShieldCheck, ShieldOff, Trash2 } from "lucide-react";
+import { History, RefreshCw, Search, ShieldCheck, ShieldOff, Trash2 } from "lucide-react";
 import {
   useAdminApps,
+  useAdminAppEvents,
   useAdminDeleteApp,
   useAdminRotateKey,
   useAdminSendEmail,
@@ -26,7 +27,7 @@ import { Button } from "@/components/ui/button";
 import { Badge, Skeleton } from "@/components/ui/badge";
 import { FormField } from "@/components/ui/input";
 import { formatDisplayDate, getInitials, truncate } from "@/lib/utils";
-import type { App } from "@/types";
+import type { App, AppEvent } from "@/types";
 
 export default function AdminAppsPage() {
   const { data: apps = [], isLoading } = useAdminApps();
@@ -44,6 +45,7 @@ export default function AdminAppsPage() {
   const [suspendReason, setSuspendReason] = useState("");
   const [unsuspendTarget, setUnsuspendTarget] = useState<App | null>(null);
   const [removeTarget, setRemoveTarget] = useState<App | null>(null);
+  const [timelineTarget, setTimelineTarget] = useState<App | null>(null);
   const [newKey, setNewKey] = useState<{ key: string; appName: string } | null>(null);
 
   const users = usersData?.users ?? [];
@@ -232,6 +234,15 @@ export default function AdminAppsPage() {
                             size="sm"
                             variant="ghost"
                             className="text-slate-400"
+                            onClick={() => setTimelineTarget(app)}
+                            title="View event history"
+                          >
+                            <History className="h-3.5 w-3.5" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-slate-400"
                             onClick={() => handleRotate(app)}
                             title="Rotate API key"
                           >
@@ -317,6 +328,12 @@ export default function AdminAppsPage() {
         loading={deleting}
       />
 
+      <EventTimelineDialog
+        app={timelineTarget}
+        open={!!timelineTarget}
+        onOpenChange={(open) => !open && setTimelineTarget(null)}
+      />
+
       <Dialog open={!!newKey} onOpenChange={(open) => !open && setNewKey(null)}>
         <DialogContent size="sm">
           <DialogHeader>
@@ -337,6 +354,72 @@ export default function AdminAppsPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+    </div>
+  );
+}
+
+function EventTimelineDialog({
+  app,
+  open,
+  onOpenChange,
+}: {
+  app: App | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const { data: events = [], isLoading } = useAdminAppEvents(app?.id);
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent size="lg">
+        <DialogHeader>
+          <DialogTitle>Timeline - {app?.name}</DialogTitle>
+        </DialogHeader>
+        <DialogBody>
+          {isLoading ? (
+            <div className="space-y-3">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <Skeleton key={index} className="h-16 rounded-lg" />
+              ))}
+            </div>
+          ) : events.length === 0 ? (
+            <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-8 text-center text-sm text-slate-500">
+              No app events recorded yet.
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {events.map((event) => (
+                <TimelineItem key={event.id} event={event} />
+              ))}
+            </div>
+          )}
+        </DialogBody>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function TimelineItem({ event }: { event: AppEvent }) {
+  const actorLabel =
+    event.actor_type.charAt(0).toUpperCase() + event.actor_type.slice(1);
+
+  return (
+    <div className="rounded-lg border border-slate-200 bg-white px-4 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge variant="inactive">{actorLabel}</Badge>
+          <span className="text-sm font-semibold text-slate-900">{event.event_type}</span>
+          {event.from_status && event.to_status && (
+            <span className="text-xs text-slate-500">
+              {event.from_status} to {event.to_status}
+            </span>
+          )}
+        </div>
+        <span className="text-xs text-slate-400">{formatDisplayDate(event.created_at)}</span>
+      </div>
+      {event.reason && (
+        <p className="mt-2 text-sm text-slate-600">Reason: {event.reason}</p>
+      )}
     </div>
   );
 }

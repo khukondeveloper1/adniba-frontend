@@ -3,6 +3,7 @@ import type {
   ApiResponse,
   ApiResponseWithMeta,
   App,
+  AppEvent,
   AdminDeveloper,
   AdminDeveloperDetail,
   AdminUserListStats,
@@ -37,8 +38,15 @@ type AdminUsersListResponse = {
 };
 
 function normalizeApp(app: AppResponse): App {
+  const status =
+    app.status ??
+    (app.is_suspended ? "suspended" : app.app_status ? "active" : "inactive");
+
   return {
     ...app,
+    status,
+    app_status: status === "active",
+    is_suspended: status === "suspended",
     app_logo: app.app_logo ?? app.icon_url ?? app.logo_url ?? null,
   };
 }
@@ -56,6 +64,13 @@ export const adminAppsService = {
   getApp: async (id: number | string): Promise<App> => {
     const res = await adminAxios.get<ApiResponse<AppResponse>>(`/admin/apps/${id}`);
     return normalizeApp(res.data.data);
+  },
+
+  getEvents: async (id: number | string): Promise<AppEvent[]> => {
+    const res = await adminAxios.get<ApiResponse<AppEvent[]>>(
+      `/admin/apps/${id}/events`,
+    );
+    return res.data.data;
   },
 
   suspendApp: async (

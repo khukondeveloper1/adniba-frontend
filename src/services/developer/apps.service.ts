@@ -17,8 +17,15 @@ type AppResponse = App & {
 };
 
 function normalizeApp(app: AppResponse): App {
+  const status =
+    app.status ??
+    (app.is_suspended ? "suspended" : app.app_status ? "active" : "inactive");
+
   return {
     ...app,
+    status,
+    app_status: status === "active",
+    is_suspended: status === "suspended",
     app_logo: app.app_logo ?? app.icon_url ?? app.logo_url ?? null,
   };
 }
@@ -122,8 +129,12 @@ export const developerAppsService = {
   toggleStatus: async (
     id: number | string,
     input: ToggleAppStatusInput,
-  ): Promise<void> => {
-    await developerAxios.patch(`/developer/apps/${id}/status`, input);
+  ): Promise<App> => {
+    const res = await developerAxios.patch<ApiResponse<AppResponse>>(
+      `/developer/apps/${id}/status`,
+      input,
+    );
+    return normalizeApp(res.data.data);
   },
 
   /**
@@ -132,8 +143,12 @@ export const developerAppsService = {
   toggleAdsEnabled: async (
     id: number | string,
     input: ToggleAdsEnabledInput,
-  ): Promise<void> => {
-    await developerAxios.patch(`/developer/apps/${id}/ads-enabled`, input);
+  ): Promise<App> => {
+    const res = await developerAxios.patch<ApiResponse<AppResponse>>(
+      `/developer/apps/${id}/ads-enabled`,
+      input,
+    );
+    return normalizeApp(res.data.data);
   },
 
   /**

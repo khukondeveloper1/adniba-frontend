@@ -24,6 +24,14 @@ export function useAdminApp(id: number | string) {
   return useQuery({ queryKey: queryKeys.adminApp(id), queryFn: () => adminAppsService.getApp(id), enabled: !!id });
 }
 
+export function useAdminAppEvents(id?: number | string) {
+  return useQuery({
+    queryKey: queryKeys.adminAppEvents(id ?? "none"),
+    queryFn: () => adminAppsService.getEvents(id!),
+    enabled: !!id,
+  });
+}
+
 export function useAdminSuspendApp() {
   const qc = useQueryClient();
   return useMutation({

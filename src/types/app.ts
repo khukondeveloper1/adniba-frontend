@@ -17,6 +17,7 @@ export interface App {
   package_name: string;
   app_logo: string | null;
   api_key: string;
+  status: "active" | "inactive" | "suspended";
   app_status: boolean;
   global_ad_enabled: boolean;
   is_suspended: boolean;
@@ -28,6 +29,19 @@ export interface App {
   ad_units_count: number;
   created_at: string;
   updated_at: string;
+}
+
+export interface AppEvent {
+  id: number;
+  app_id: number;
+  event_type: string;
+  from_status: "active" | "inactive" | "suspended" | null;
+  to_status: "active" | "inactive" | "suspended" | null;
+  reason: string | null;
+  actor_type: "admin" | "developer" | "system";
+  actor_id: number | null;
+  metadata: Record<string, unknown> | null;
+  created_at: string;
 }
 
 /**

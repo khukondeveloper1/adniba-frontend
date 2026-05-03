@@ -24,6 +24,8 @@ import type {
   ToggleAdUnitInput,
   UpsertAdSettingInput,
   SubmitLimitRequestInput,
+  ApiResponseWithMeta,
+  App,
 } from "@/types";
 
 // ── Auth ──────────────────────────────────────────────────────────
@@ -101,12 +103,62 @@ export function useRotateApiKey(appId: number | string) {
   });
 }
 
+function patchAppInList(
+  data: ApiResponseWithMeta<App[]> | undefined,
+  appId: number | string,
+  patch: Partial<App>,
+): ApiResponseWithMeta<App[]> | undefined {
+  if (!data) return data;
+
+  return {
+    ...data,
+    data: data.data.map((app) =>
+      app.id === Number(appId) ? { ...app, ...patch } : app,
+    ),
+  };
+}
+
 export function useToggleAppStatus(appId: number | string) {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (input: ToggleAppStatusInput) =>
       developerAppsService.toggleStatus(appId, input),
-    onSuccess: () => qc.invalidateQueries({ queryKey: queryKeys.devApp(appId) }),
+    onMutate: async (input) => {
+      await Promise.all([
+        qc.cancelQueries({ queryKey: queryKeys.devApps() }),
+        qc.cancelQueries({ queryKey: queryKeys.devApp(appId) }),
+      ]);
+
+      const previousApps = qc.getQueryData<ApiResponseWithMeta<App[]>>(
+        queryKeys.devApps(),
+      );
+      const previousApp = qc.getQueryData<App>(queryKeys.devApp(appId));
+      const status = input.active ? "active" : "inactive";
+      const patch = { status, app_status: input.active, is_suspended: false } as Partial<App>;
+
+      qc.setQueryData(queryKeys.devApps(), patchAppInList(previousApps, appId, patch));
+      qc.setQueryData<App>(queryKeys.devApp(appId), (app) =>
+        app ? { ...app, ...patch } : app,
+      );
+
+      return { previousApps, previousApp };
+    },
+    onError: (_err, _input, context) => {
+      qc.setQueryData(queryKeys.devApps(), context?.previousApps);
+      qc.setQueryData(queryKeys.devApp(appId), context?.previousApp);
+      toast.error("Could not update app status.");
+    },
+    onSuccess: (app) => {
+      qc.setQueryData(queryKeys.devApps(), (data: ApiResponseWithMeta<App[]> | undefined) =>
+        patchAppInList(data, appId, app),
+      );
+      qc.setQueryData(queryKeys.devApp(appId), app);
+      toast.success("App status updated.");
+    },
+    onSettled: () => {
+      qc.invalidateQueries({ queryKey: queryKeys.devApps() });
+      qc.invalidateQueries({ queryKey: queryKeys.devApp(appId) });
+    },
   });
 }
 
@@ -115,7 +167,41 @@ export function useToggleAdsEnabled(appId: number | string) {
   return useMutation({
     mutationFn: (input: ToggleAdsEnabledInput) =>
       developerAppsService.toggleAdsEnabled(appId, input),
-    onSuccess: () => qc.invalidateQueries({ queryKey: queryKeys.devApp(appId) }),
+    onMutate: async (input) => {
+      await Promise.all([
+        qc.cancelQueries({ queryKey: queryKeys.devApps() }),
+        qc.cancelQueries({ queryKey: queryKeys.devApp(appId) }),
+      ]);
+
+      const previousApps = qc.getQueryData<ApiResponseWithMeta<App[]>>(
+        queryKeys.devApps(),
+      );
+      const previousApp = qc.getQueryData<App>(queryKeys.devApp(appId));
+      const patch = { global_ad_enabled: input.enabled } as Partial<App>;
+
+      qc.setQueryData(queryKeys.devApps(), patchAppInList(previousApps, appId, patch));
+      qc.setQueryData<App>(queryKeys.devApp(appId), (app) =>
+        app ? { ...app, ...patch } : app,
+      );
+
+      return { previousApps, previousApp };
+    },
+    onError: (_err, _input, context) => {
+      qc.setQueryData(queryKeys.devApps(), context?.previousApps);
+      qc.setQueryData(queryKeys.devApp(appId), context?.previousApp);
+      toast.error("Could not update global ads.");
+    },
+    onSuccess: (app) => {
+      qc.setQueryData(queryKeys.devApps(), (data: ApiResponseWithMeta<App[]> | undefined) =>
+        patchAppInList(data, appId, app),
+      );
+      qc.setQueryData(queryKeys.devApp(appId), app);
+      toast.success("Global ads updated.");
+    },
+    onSettled: () => {
+      qc.invalidateQueries({ queryKey: queryKeys.devApps() });
+      qc.invalidateQueries({ queryKey: queryKeys.devApp(appId) });
+    },
   });
 }
 
