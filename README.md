@@ -19,7 +19,7 @@ cp .env.local.example .env.local
 npm install
 npm run dev
 ```
-
+  
 ## Architecture
 
 ```
