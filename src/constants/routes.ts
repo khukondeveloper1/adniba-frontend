@@ -50,6 +50,6 @@ export const ROUTES = {
 // ── Storage keys ──────────────────────────────────────────────────
 
 export const STORAGE_KEYS = {
-  devToken: "adnex_dev_token",
-  adminToken: "adnex_admin_token",
+  devToken: "adniba_dev_token",
+  adminToken: "adniba_admin_token",
 } as const;

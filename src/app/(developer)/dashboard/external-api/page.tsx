@@ -30,14 +30,15 @@ const ENDPOINTS = [
     path: "/external/config",
     description: "Fetch live ad configuration for an app",
     examples: {
-      curl: `curl -X GET https://api.adnex.io/api/v1/external/config \\
+      curl: `curl -X GET https://api.adniba.io/api/v1/external/config \\
   -H "x-api-key: YOUR_APP_API_KEY"`,
       js: `const res = await fetch('/api/v1/external/config', {
-  headers: { 'x-api-key': process.env.ADNEX_KEY }
+  headers: { 'x-api-key': process.env.ADNIBA_KEY }
 });
 const { data } = await res.json();`,
       kotlin: `val req = Request.Builder()
-    .url("https://api.adnex.io/api/v1/external/config")
+    .url("https://api.adniba.io/api/v1/external/config")
+        .url("https://api.adniba.io/api/v1/external/config")
     .header("x-api-key", apiKey)
     .build()
 val config = client.newCall(req).execute()`,
@@ -48,7 +49,7 @@ val config = client.newCall(req).execute()`,
     path: "/ads/event",
     description: "Report an ad event (impression, click, fail)",
     examples: {
-      curl: `curl -X POST https://api.adnex.io/api/v1/ads/event \\
+      curl: `curl -X POST https://api.adniba.io/api/v1/ads/event \\
   -H "x-api-key: YOUR_APP_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{"event":"impression","placement":"home","ad_type":"banner","network":"admob"}'`,
@@ -80,7 +81,7 @@ val req = Request.Builder()
     path: "/ads/load",
     description: "Request an ad for a specific placement",
     examples: {
-      curl: `curl -X POST https://api.adnex.io/api/v1/ads/load \\
+      curl: `curl -X POST https://api.adniba.io/api/v1/ads/load \\
   -H "x-api-key: YOUR_APP_API_KEY" \\
   -d '{"placement":"home","ad_type":"interstitial"}'`,
       js: `const res = await fetch('/api/v1/ads/load', {
@@ -88,7 +89,7 @@ val req = Request.Builder()
   headers: { 'x-api-key': apiKey, 'Content-Type': 'application/json' },
   body: JSON.stringify({ placement: 'home', ad_type: 'interstitial' }),
 });`,
-      kotlin: `// Prefer using AdNexSDK.loadAd() for Android apps
+      kotlin: `// Prefer using AdnibaSDK.loadAd() for Android apps
 // Direct API usage for server-side or custom clients`,
     },
   },

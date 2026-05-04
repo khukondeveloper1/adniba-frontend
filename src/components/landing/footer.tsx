@@ -40,7 +40,7 @@ export function LandingFooter() {
                 <Zap className="h-4 w-4 text-white" />
               </div>
               <span className="text-lg font-bold text-white tracking-tight">
-                AdNex
+                Adniba
               </span>
             </div>
             <p className="text-sm leading-relaxed text-slate-500">
@@ -72,7 +72,7 @@ export function LandingFooter() {
 
         {/* Bottom bar */}
         <div className="mt-12 border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
-          <p>© {new Date().getFullYear()} AdNex. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Adniba. All rights reserved.</p>
           <p className="text-xs">Built for Android developers.</p>
         </div>
       </div>

@@ -134,7 +134,7 @@ export function truncate(str: string, maxLength: number): string {
 
 /**
  * Mask an API key for safe display in tables
- * "adnex_abc123xyz456" → "adnex_abc1••••••••"
+ * "adniba_abc123xyz456" → "adniba_abc1••••••••"
  */
 export function maskApiKey(key: string): string {
   if (key.length <= 12) return "••••••••••••";

@@ -73,7 +73,7 @@ export function FeaturesSection() {
             maximise ad revenue.
           </h2>
           <p className="mt-4 text-slate-500 max-w-xl mx-auto">
-            AdNex handles the complexity of ad mediation so you can focus on
+            Adniba handles the complexity of ad mediation so you can focus on
             building great apps.
           </p>
         </div>

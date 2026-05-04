@@ -101,7 +101,7 @@ export default function AdminAppsPage() {
             subject: `Your app "${removeTarget.name}" has been removed`,
             body: `
               <p>Hello ${owner.name},</p>
-              <p>Your app <strong>${removeTarget.name}</strong> (${removeTarget.package_name}) has been removed from the AdNex platform by an administrator.</p>
+              <p>Your app <strong>${removeTarget.name}</strong> (${removeTarget.package_name}) has been removed from the Adniba platform by an administrator.</p>
               <p>This app API key is no longer valid.</p>
               <p>If you need help, please contact support.</p>
             `.trim(),

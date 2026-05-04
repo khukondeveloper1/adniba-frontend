@@ -27,18 +27,18 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "AdNex — Ad Mediation Platform",
-    template: "%s | AdNex",
+    default: "Adniba — Ad Mediation Platform",
+    template: "%s | Adniba",
   },
   description:
-    "AdNex is a powerful ad mediation platform that connects your Android app with top ad networks through a single unified SDK.",
+    "Adniba is a powerful ad mediation platform that connects your Android app with top ad networks through a single unified SDK.",
   keywords: ["ad mediation", "android ads", "admob", "ad network", "sdk"],
-  authors: [{ name: "AdNex" }],
+  authors: [{ name: "Adniba" }],
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
-    siteName: "AdNex",
-    title: "AdNex — Ad Mediation Platform",
+    siteName: "Adniba",
+    title: "Adniba — Ad Mediation Platform",
     description:
       "Connect your Android app to top ad networks through a single unified SDK.",
   },

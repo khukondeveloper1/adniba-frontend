@@ -58,7 +58,7 @@ export function DeveloperSidebar({ mobileOpen, onMobileClose }: SidebarProps) {
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary">
               <Zap className="h-3.5 w-3.5 text-white" />
             </div>
-            <span className="text-base font-bold text-white tracking-tight">AdNex</span>
+            <span className="text-base font-bold text-white tracking-tight">Adniba</span>
           </Link>
         )}
         {collapsed && (

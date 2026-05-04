@@ -19,7 +19,7 @@ export default function AuthLayout({
               <Zap className="h-3.5 w-3.5 text-white" />
             </div>
             <span className="text-base font-bold text-slate-900 tracking-tight">
-              AdNex
+              Adniba
             </span>
           </Link>
         </header>

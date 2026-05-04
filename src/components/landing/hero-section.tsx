@@ -117,18 +117,18 @@ export function HeroSection() {
               <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
               <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
               <span className="ml-2 text-xs font-mono text-slate-400">
-                AdNexSDK.kt
+                AdnibaSDK.kt
               </span>
             </div>
             <pre className="p-5 text-xs font-mono text-slate-700 leading-relaxed overflow-x-auto">
               <code>{`// One-line initialisation
-AdNexSDK.initialize(
+AdnibaSDK.initialize(
   context = this,
   apiKey  = "YOUR_API_KEY"
 )
 
 // Load an ad
-AdNexSDK.loadAd(
+AdnibaSDK.loadAd(
   placement = "home",
   adType    = AdType.INTERSTITIAL
 ) { event ->

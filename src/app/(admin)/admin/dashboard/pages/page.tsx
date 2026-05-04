@@ -90,7 +90,7 @@ function PageEditor({ pageKey }: { pageKey: PageKey }) {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           className="flex w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-y"
-          placeholder="<h2>About AdNex</h2><p>…</p>"
+          placeholder="<h2>About Adniba</h2><p>…</p>"
         />
         <p className="mt-1.5 text-xs text-slate-400">HTML content. Rendered on the public-facing static page.</p>
       </div>

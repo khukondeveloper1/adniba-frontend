@@ -17,7 +17,7 @@ export default function PublicDocsPage() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-10">
           <h1 className="text-3xl font-bold text-slate-900 tracking-tight mb-2">API Documentation</h1>
-          <p className="text-slate-500">Integrate AdNex into your apps and backends.</p>
+          <p className="text-slate-500">Integrate Adniba into your apps and backends.</p>
         </div>
 
         {/* Category tabs */}

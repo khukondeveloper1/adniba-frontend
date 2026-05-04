@@ -29,7 +29,7 @@ export function NetworksSection() {
             one integration.
           </h2>
           <p className="mt-4 text-slate-500 max-w-xl mx-auto">
-            Connect once with the AdNex SDK. Switch networks, adjust priorities,
+            Connect once with the Adniba SDK. Switch networks, adjust priorities,
             and configure fallbacks — all without touching your app.
           </p>
         </div>

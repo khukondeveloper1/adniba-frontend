@@ -1,6 +1,6 @@
-# AdNex Frontend
+# Adniba Frontend
 
-Production-ready SaaS frontend for the AdNex Ad Mediation Platform.
+Production-ready SaaS frontend for the Adniba Ad Mediation Platform.
 
 ## Stack
 

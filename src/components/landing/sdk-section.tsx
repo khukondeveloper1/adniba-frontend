@@ -15,12 +15,12 @@ const steps = [
   {
     number: "01",
     title: "Add the dependency",
-    description: "Add the AdNex SDK to your app's build.gradle file.",
+    description: "Add the Adniba SDK to your app's build.gradle file.",
   },
   {
     number: "02",
     title: "Initialise the SDK",
-    description: "Call AdNexSDK.initialize() once in your Application class.",
+    description: "Call AdnibaSDK.initialize() once in your Application class.",
   },
   {
     number: "03",
@@ -37,7 +37,7 @@ const codeSnippets: Record<TabKey, { label: string; lang: string; code: string }
     lang: "groovy",
     code: `// app/build.gradle
 dependencies {
-    implementation 'com.adnex:sdk-android:1.0.0'
+    implementation 'com.adniba:sdk-android:1.0.0'
 }`,
   },
   init: {
@@ -47,9 +47,9 @@ dependencies {
     override fun onCreate() {
         super.onCreate()
 
-        AdNexSDK.initialize(
+        AdnibaSDK.initialize(
             context = this,
-            apiKey  = BuildConfig.ADNEX_API_KEY
+            apiKey  = BuildConfig.ADNIBA_API_KEY
         )
     }
 }`,
@@ -58,14 +58,14 @@ dependencies {
     label: "HomeActivity.kt",
     lang: "kotlin",
     code: `// Load an interstitial ad
-AdNexSDK.loadAd(
+AdnibaSDK.loadAd(
     activity  = this,
     placement = "home",
     adType    = AdType.INTERSTITIAL
 ) { event ->
     when (event) {
         is AdEvent.Loaded  -> event.ad.show(this)
-        is AdEvent.Failed  -> Log.e("AdNex", event.reason)
+        is AdEvent.Failed  -> Log.e("Adniba", event.reason)
         is AdEvent.Clicked -> trackClick()
     }
 }`,
@@ -93,7 +93,7 @@ export function SdkSection() {
               three steps.
             </h2>
             <p className="text-slate-500 mb-10">
-              The AdNex Android SDK is lightweight, battle-tested, and requires
+              The Adniba Android SDK is lightweight, battle-tested, and requires
               no per-network setup on the app side.
             </p>
 

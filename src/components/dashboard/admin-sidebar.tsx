@@ -42,7 +42,7 @@ export function AdminSidebar() {
         {!collapsed && (
           <div className="flex items-center gap-2">
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary"><Zap className="h-3.5 w-3.5 text-white" /></div>
-            <span className="text-base font-bold text-white">AdNex <span className="text-xs font-normal text-slate-400">Admin</span></span>
+            <span className="text-base font-bold text-white">Adniba <span className="text-xs font-normal text-slate-400">Admin</span></span>
           </div>
         )}
         {collapsed && <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary"><Zap className="h-3.5 w-3.5 text-white" /></div>}

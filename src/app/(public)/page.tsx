@@ -7,7 +7,7 @@ import { ApiSection } from "@/components/landing/api-section";
 import { CtaSection } from "@/components/landing/cta-section";
 
 export const metadata: Metadata = {
-  title: "AdNex — Ad Mediation Simplified",
+  title: "Adniba — Ad Mediation Simplified",
   description:
     "Connect your Android app to every major ad network through a single SDK and dashboard.",
 };

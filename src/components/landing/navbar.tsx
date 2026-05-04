@@ -50,7 +50,7 @@ export function LandingNavbar() {
               <Zap className="h-4 w-4 text-white" />
             </div>
             <span className="text-lg font-bold text-slate-900 tracking-tight">
-              AdNex
+              Adniba
             </span>
           </Link>
 

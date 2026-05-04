@@ -94,7 +94,7 @@ export default function AppsPage() {
           </div>
           <h2 className="mb-1 text-base font-semibold text-slate-900">No apps yet</h2>
           <p className="mb-5 max-w-xs text-sm text-slate-500">
-            Create your first app to start serving ads through AdNex.
+            Create your first app to start serving ads through Adniba.
           </p>
           <Button onClick={() => setCreateOpen(true)}>
             <Plus className="h-4 w-4" /> Create App

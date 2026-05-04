@@ -17,15 +17,15 @@ type Lang = "curl" | "js" | "kotlin";
 
 const codeExamples: Record<Lang, string> = {
   curl: `curl -X GET \\
-  https://api.adnex.io/api/v1/external/config \\
+  https://api.adniba.io/api/v1/external/config \\
   -H "x-api-key: YOUR_APP_API_KEY" \\
   -H "Content-Type: application/json"`,
 
   js: `const response = await fetch(
-  'https://api.adnex.io/api/v1/external/config',
+  'https://api.adniba.io/api/v1/external/config',
   {
     headers: {
-      'x-api-key': process.env.ADNEX_API_KEY,
+      'x-api-key': process.env.ADNIBA_API_KEY,
     },
   }
 );
@@ -33,8 +33,8 @@ const { data } = await response.json();`,
 
   kotlin: `val client = OkHttpClient()
 val request = Request.Builder()
-    .url("https://api.adnex.io/api/v1/external/config")
-    .addHeader("x-api-key", BuildConfig.ADNEX_API_KEY)
+    .url("https://api.adniba.io/api/v1/external/config")
+    .addHeader("x-api-key", BuildConfig.ADNIBA_API_KEY)
     .build()
 
 client.newCall(request).execute().use { response ->
