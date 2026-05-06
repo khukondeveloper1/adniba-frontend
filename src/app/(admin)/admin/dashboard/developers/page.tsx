@@ -25,6 +25,7 @@ export default function AdminDevelopersPage() {
   const { handleError } = useApiError();
 
   const [toggleTarget, setToggleTarget] = useState<AdminDeveloper | null>(null);
+  const [deactivateReason, setDeactivateReason] = useState("");
   const [limitTarget, setLimitTarget] = useState<AdminDeveloper | null>(null);
   const [limitValue, setLimitValue] = useState("");
   const [emailTarget, setEmailTarget] = useState<AdminDeveloper | null>(null);
@@ -33,13 +34,29 @@ export default function AdminDevelopersPage() {
 
   const users = data?.users ?? [];
   const stats = data?.stats;
+  const isDeactivating = Boolean(toggleTarget?.status);
+  const trimmedDeactivateReason = deactivateReason.trim();
 
   const handleToggle = async () => {
     if (!toggleTarget) return;
+    const active = !toggleTarget.status;
+    if (!active && !trimmedDeactivateReason) return;
+
     try {
-      await toggleStatus({ id: toggleTarget.id, input: { active: !toggleTarget.status } });
+      await toggleStatus({
+        id: toggleTarget.id,
+        input: active
+          ? { active }
+          : { active, reason: trimmedDeactivateReason },
+      });
       setToggleTarget(null);
+      setDeactivateReason("");
     } catch (err) { handleError(err); }
+  };
+
+  const closeToggleDialog = () => {
+    setToggleTarget(null);
+    setDeactivateReason("");
   };
 
   const handleSetLimit = async () => {
@@ -122,7 +139,7 @@ export default function AdminDevelopersPage() {
                   <td className="px-5 py-3.5 text-slate-400 text-xs">{formatDisplayDate(user.created_at)}</td>
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-1">
-                      <Button size="sm" variant="ghost" className="text-slate-400 hover:text-slate-700" onClick={() => { setToggleTarget(user); }} title={user.status ? "Deactivate" : "Activate"}>
+                      <Button size="sm" variant="ghost" className="text-slate-400 hover:text-slate-700" onClick={() => { setToggleTarget(user); setDeactivateReason(""); }} title={user.status ? "Deactivate" : "Activate"}>
                         {user.status ? <UserX className="h-4 w-4" /> : <UserCheck className="h-4 w-4" />}
                       </Button>
                       <Button size="sm" variant="ghost" className="text-slate-400 hover:text-slate-700" onClick={() => { setLimitTarget(user); setLimitValue(String(user.app_limit + 5)); }} title="Set app limit">
@@ -140,16 +157,52 @@ export default function AdminDevelopersPage() {
       </div>
 
       {/* Toggle status confirm */}
-      <ConfirmDialog
-        open={!!toggleTarget}
-        onOpenChange={(o) => !o && setToggleTarget(null)}
-        title={toggleTarget?.status ? `Deactivate ${toggleTarget?.name}?` : `Activate ${toggleTarget?.name}?`}
-        description={toggleTarget?.status ? "The developer will lose access to their dashboard." : "The developer will regain access."}
-        confirmLabel={toggleTarget?.status ? "Deactivate" : "Activate"}
-        variant={toggleTarget?.status ? "destructive" : "default"}
-        onConfirm={handleToggle}
-        loading={toggling}
-      />
+      {isDeactivating ? (
+        <Dialog open={!!toggleTarget} onOpenChange={(o) => !o && closeToggleDialog()}>
+          <DialogContent size="sm">
+            <DialogHeader><DialogTitle>Deactivate {toggleTarget?.name}?</DialogTitle></DialogHeader>
+            <DialogBody className="space-y-3">
+              <p className="text-sm text-slate-500">The developer will lose access to their dashboard.</p>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                  Reason <span className="text-destructive">*</span>
+                </label>
+                <textarea
+                  rows={4}
+                  required
+                  value={deactivateReason}
+                  onChange={(e) => setDeactivateReason(e.target.value)}
+                  placeholder="Policy violation"
+                  className="flex w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none"
+                />
+              </div>
+            </DialogBody>
+            <DialogFooter>
+              <Button variant="outline" size="sm" onClick={closeToggleDialog}>Cancel</Button>
+              <Button
+                size="sm"
+                variant="destructive"
+                loading={toggling}
+                onClick={handleToggle}
+                disabled={!trimmedDeactivateReason}
+              >
+                Deactivate
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      ) : (
+        <ConfirmDialog
+          open={!!toggleTarget}
+          onOpenChange={(o) => !o && closeToggleDialog()}
+          title={`Activate ${toggleTarget?.name}?`}
+          description="The developer will regain access."
+          confirmLabel="Activate"
+          variant="default"
+          onConfirm={handleToggle}
+          loading={toggling}
+        />
+      )}
 
       {/* Set limit dialog */}
       <Dialog open={!!limitTarget} onOpenChange={(o) => !o && setLimitTarget(null)}>

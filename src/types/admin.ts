@@ -100,9 +100,15 @@ export interface ApiDoc {
 
 // ── Form inputs ───────────────────────────────────────────────────
 
-export interface ToggleUserStatusInput {
-  active: boolean;
-}
+export type ToggleUserStatusInput =
+  | {
+      active: true;
+      reason?: string;
+    }
+  | {
+      active: false;
+      reason: string;
+    };
 
 export interface SetAppLimitInput {
   limit: number; // min:1, max:100
