@@ -31,7 +31,12 @@ export default function LoginPage() {
     setSubmitting(true);
     try {
       await login(data);
-    } catch (err) {
+    } catch (err: any) {
+      // Intercept the specific unverified email error from backend
+      if (err?.response?.data?.message === "Please verify your email before logging in.") {
+        window.location.href = `${ROUTES.verifyEmail}?email=${encodeURIComponent(data.email)}`;
+        return;
+      }
       handleError(err, { setError });
     } finally {
       setSubmitting(false);

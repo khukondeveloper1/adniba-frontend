@@ -3,10 +3,13 @@ import developerAxios from "@/lib/axios/developer";
 import type {
   ApiResponse,
   DeveloperAuthResponse,
+  DeveloperRegisterResponse,
   DeveloperLoginInput,
   DeveloperRegisterInput,
   ForgotPasswordInput,
   ResetPasswordInput,
+  VerifyEmailInput,
+  ResendVerificationInput,
   Developer,
 } from "@/types";
 
@@ -30,16 +33,43 @@ export const developerAuthService = {
 
   /**
    * POST /developer/auth/register
-   * Returns token + user immediately (auto-login after registration)
+   * Returns user immediately (no token until verified)
    */
   register: async (
     input: DeveloperRegisterInput,
-  ): Promise<DeveloperAuthResponse> => {
-    const res = await publicAxios.post<ApiResponse<DeveloperAuthResponse>>(
+  ): Promise<DeveloperRegisterResponse> => {
+    const res = await publicAxios.post<ApiResponse<DeveloperRegisterResponse>>(
       "/developer/auth/register",
       input,
     );
     return res.data.data;
+  },
+
+  /**
+   * POST /developer/auth/verify-email
+   * Returns token + user (logs in the user)
+   */
+  verifyEmail: async (
+    input: VerifyEmailInput,
+  ): Promise<DeveloperAuthResponse> => {
+    const res = await publicAxios.post<ApiResponse<DeveloperAuthResponse>>(
+      "/developer/auth/verify-email",
+      input,
+    );
+    return res.data.data;
+  },
+
+  /**
+   * POST /developer/auth/resend-verification
+   */
+  resendVerification: async (
+    input: ResendVerificationInput,
+  ): Promise<string> => {
+    const res = await publicAxios.post<{ status: string; message: string }>(
+      "/developer/auth/resend-verification",
+      input,
+    );
+    return res.data.message;
   },
 
   /**

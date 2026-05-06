@@ -18,6 +18,7 @@ export const ROUTES = {
   register: "/register",
   forgotPassword: "/forgot-password",
   resetPassword: "/reset-password",
+  verifyEmail: "/verify-email",
 
   // ── Developer Dashboard ───────────────────────────────────────
   dashboard: "/dashboard",

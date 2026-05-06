@@ -43,6 +43,13 @@ export interface DeveloperAuthResponse extends AuthTokens {
 }
 
 /**
+ * Developer register response (No token until verified)
+ */
+export interface DeveloperRegisterResponse {
+  user: Pick<Developer, "id" | "name" | "email">;
+}
+
+/**
  * Admin login response — returned directly (not wrapped in data{})
  * POST /admin/auth/login → { access_token, token_type, expires_in }
  */
@@ -92,6 +99,15 @@ export interface ResetPasswordInput {
   token: string;
   password: string;
   password_confirmation: string;
+}
+
+export interface VerifyEmailInput {
+  email: string;
+  code: string;
+}
+
+export interface ResendVerificationInput {
+  email: string;
 }
 
 export interface ChangePasswordInput {

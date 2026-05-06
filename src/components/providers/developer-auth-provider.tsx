@@ -20,6 +20,7 @@ import type {
   Developer,
   DeveloperLoginInput,
   DeveloperRegisterInput,
+  VerifyEmailInput,
 } from "@/types";
 
 // ─────────────────────────────────────────────────────────────────
@@ -32,6 +33,7 @@ interface DeveloperAuthContextValue {
   isLoading: boolean;
   login: (input: DeveloperLoginInput) => Promise<void>;
   register: (input: DeveloperRegisterInput) => Promise<void>;
+  verifyEmail: (input: VerifyEmailInput) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
 }
@@ -84,7 +86,17 @@ export function DeveloperAuthProvider({
   // ── Register ──────────────────────────────────────────────────
   const register = useCallback(
     async (input: DeveloperRegisterInput) => {
-      const data = await developerAuthService.register(input);
+      await developerAuthService.register(input);
+      // Backend no longer returns token, navigate to verify email
+      router.push(`${ROUTES.verifyEmail}?email=${encodeURIComponent(input.email)}`);
+    },
+    [router],
+  );
+
+  // ── Verify Email ──────────────────────────────────────────────
+  const verifyEmail = useCallback(
+    async (input: VerifyEmailInput) => {
+      const data = await developerAuthService.verifyEmail(input);
       setDevToken(data.access_token);
       const me = await developerAuthService.me();
       setUser(me);
@@ -121,6 +133,7 @@ export function DeveloperAuthProvider({
         isLoading,
         login,
         register,
+        verifyEmail,
         logout,
         refreshUser,
       }}

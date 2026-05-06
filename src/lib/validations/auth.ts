@@ -24,6 +24,15 @@ export const forgotPasswordSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
 });
 
+export const verifyEmailSchema = z.object({
+  email: z.string().email(),
+  code: z.string().length(6, "Code must be exactly 6 digits").regex(/^\d+$/, "Code must contain only digits"),
+});
+
+export const resendVerificationSchema = z.object({
+  email: z.string().min(1, "Email is required").email("Invalid email address"),
+});
+
 export const resetPasswordSchema = z
   .object({
     token: z.string().min(1),
@@ -46,3 +55,5 @@ export type RegisterInput = z.infer<typeof registerSchema>;
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
 export type AdminLoginInput = z.infer<typeof adminLoginSchema>;
+export type VerifyEmailInput = z.infer<typeof verifyEmailSchema>;
+export type ResendVerificationInput = z.infer<typeof resendVerificationSchema>;
